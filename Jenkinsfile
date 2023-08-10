@@ -15,11 +15,11 @@ pipeline {
         stage('Test'){
             steps{
 
-                sh "./mvnw clean test"
+                sh "${mvnWrapper} test"
                 echo 'Testing the project with maven test'
             }
         }
 
-        
+
     }
 }
