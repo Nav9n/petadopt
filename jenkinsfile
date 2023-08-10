@@ -4,40 +4,28 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from the repository
-                checkout scm
+                // Check out the code from Git repository
+                git branch: 'master', url: 'https://github.com/Nav9n/petadopt.git'
             }
         }
         
         stage('Build') {
             steps {
-                // Build your application here
-                sh 'echo "Building the application"'
+                // Set the path to the Maven wrapper script
+                def mvnWrapper = "./mvnw"
+                
+                // Build the project using the Maven wrapper
+                sh "${mvnWrapper} clean install"
             }
         }
         
-        stage('Test') {
-            steps {
-                // Run tests for your application
-                sh 'echo "Running tests"'
-            }
-        }
+        // Add more stages as needed (e.g., testing, deployment, etc.)
     }
     
     post {
         always {
-            // Clean up or perform actions that should always run, regardless of success or failure
-            sh 'echo "Pipeline completed"'
-        }
-        
-        success {
-            // Actions to perform if the pipeline succeeds
-            sh 'echo "Pipeline succeeded"'
-        }
-        
-        failure {
-            // Actions to perform if the pipeline fails
-            sh 'echo "Pipeline failed"'
+            // Archive the build artifacts or perform any cleanup tasks
+            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
         }
     }
 }
