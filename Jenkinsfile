@@ -19,10 +19,7 @@ pipeline {
                 echo 'Testing the project with maven test'
             }
         }
+
         
-        stage('Package'){
-             sh "./mvnw clean package"
-             echo 'packaging the project with maven package'
-        }
     }
 }
