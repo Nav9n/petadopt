@@ -9,23 +9,5 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                // Set the path to the Maven wrapper script
-                def mvnWrapper = "./mvnw"
-                
-                // Build the project using the Maven wrapper
-                sh "${mvnWrapper} clean install"
-            }
-        }
-        
-        // Add more stages as needed (e.g., testing, deployment, etc.)
-    }
-    
-    post {
-        always {
-            // Archive the build artifacts or perform any cleanup tasks
-            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
-        }
     }
 }
