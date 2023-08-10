@@ -15,8 +15,11 @@ pipeline {
         stage('Test'){
             steps{
 
-                sh "${mvnWrapper} test"
-                echo 'Testing the project with maven test'
+                // Make the Maven Wrapper script executable
+                sh 'chmod +x mvnw'
+                
+                // Use the Maven Wrapper to build and test the project
+                sh './mvnw clean install'
             }
         }
 
